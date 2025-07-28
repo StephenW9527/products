@@ -1,7 +1,17 @@
 # 二維清單:清單中的清單
 # 二維清單可以用來表示矩陣或表格數據
 
+
 products = []
+with open('products.csv', 'r', encoding='utf-8') as f:
+    for line in f:
+        if '產品名稱' in line:  # 跳過表頭
+            continue
+        name, price = line.strip().split(',')
+        products.append([name, price])
+print(products)
+
+
 while True:
     name = input("請輸入產品名稱（或輸入 'q' 結束）: ")
     if name.lower() == 'q':
@@ -29,7 +39,8 @@ for product in products:
 print(f"產品數量: {len(products)}")
 
 
-with open('product.csv', 'w', encoding='utf-8') as f:
+with open('products.csv', 'w', encoding='utf-8') as f:
+    # 寫入產品清單到 CSV 檔案
     f.write('產品名稱,價格\n')  # 寫入表頭
     for product in products:
         f.write(product[0] + ',' + str(product[1]) + '\n')
